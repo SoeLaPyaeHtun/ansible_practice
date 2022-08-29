@@ -1,0 +1,17 @@
+---
+- name: condition in yml
+  hosts: two.manage
+  gather_facts: no
+  vars:
+    myPackageis: httpd 
+  tasks:
+    - name: install {{ myPackage }} 
+      yum:
+        name: "{{ myPackage }}"
+      when: myPackage is defined
+      register: result
+
+    - name: debug in result
+      debug:  
+        var: result
+

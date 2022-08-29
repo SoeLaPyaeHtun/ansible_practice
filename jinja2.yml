@@ -1,0 +1,17 @@
+---
+- name: system memory available
+  hosts: all
+  tasks:
+    - name: using template
+      template:
+        src: systemmon.j2
+        dest: /tmp/output
+
+    - name: using stat
+      stat:
+        path: /tmp/output
+      register: result
+
+    - name: debug
+      debug:
+        var: result

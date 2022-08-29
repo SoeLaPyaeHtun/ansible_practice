@@ -1,0 +1,14 @@
+---
+- name: ignore error
+  hosts: one.manage
+  tasks:
+    - name: ignore error
+      yum:
+        name: thereisnothing
+        state: latest
+      ignore_errors: yes
+
+    - name: nest task
+      yum:
+        name: httpd
+        state: latest

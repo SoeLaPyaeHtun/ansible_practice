@@ -1,0 +1,7 @@
+---
+- name: dump facts
+  hosts: one.manage
+  tasks:
+    - name: print all facts
+      debug:
+        msg:  "{{ ansible_facts.processor[2] }} inside this computer"

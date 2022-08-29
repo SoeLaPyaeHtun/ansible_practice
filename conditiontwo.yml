@@ -1,0 +1,14 @@
+---
+- name: this is testing two
+  hosts: two.manage
+  tasks:
+    - name: this is conditon two
+      shell: "cat /etc/passwd"
+      when: 
+        - ansible_distribution == "CentOS" 
+        - ansible_distribution == "RedHat"
+      register: result
+
+    - name: debug
+      debug:
+        var: result

@@ -1,0 +1,12 @@
+---
+- name: using block in file
+  hosts: two.manage
+  tasks:
+    - name: addd block in file
+      blockinfile:
+        path: /tmp/nothing
+        block: |
+          this is first line
+          this is second line
+          this is third line
+        state: present

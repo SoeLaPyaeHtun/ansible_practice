@@ -1,0 +1,10 @@
+---
+- name: firewall set
+  hosts: all
+  tasks:
+    - name: firewalld
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes

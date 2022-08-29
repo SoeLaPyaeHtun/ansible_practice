@@ -1,0 +1,17 @@
+---
+- name: testing looop in yml
+  hosts: one.manage
+  gather_facts: no
+  tasks:
+    - name: loop in yml file
+      shell: "echo This is my item {{ item }}"
+      loop:
+        - one
+        - two
+        - three
+      register: result
+
+    - name: debuging how to loop
+      debug:
+        var: result
+

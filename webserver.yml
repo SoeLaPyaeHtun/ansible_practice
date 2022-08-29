@@ -1,0 +1,63 @@
+---
+- name: play to setup web server
+  hosts: all
+  vars:
+    list_pkg:
+      - httpd
+      - firewalld
+      - python3-PyMySQL
+    web_pkg: httpd
+    firewall_pkg: firewalld
+    web_service: httpd
+    firewall_service: firewalld
+    python_pkg: python3-PyMySQL
+    rule: http
+  tasks:
+    - name: latest httpd version installed
+      yum: 
+        name: "{{ item }}"
+        state: latest
+      with_items: "{{ list_pkg }}"
+
+
+    - name: The {{ firewall_service }} service is started and enabled
+      service:
+        name: "{{ firewall_service }}"
+        enabled: true
+        state: started
+
+    - name: The {{ web_service }} service is started and enabled
+      service:
+        name: "{{ web_service }}"
+        enabled: true
+        state: started
+          
+    - name: correct index.html is present
+      copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+
+    - name: The Firewall port for {{ rule }} is open
+      firewalld:
+        service: "{{ rule }}"
+        permanent: true
+        immediate: true
+        state: enabled
+
+- name: vertify the apache servie
+  hosts: localhost
+  become: false
+  tasks: 
+    - name: Ensure the first webserver is reachable
+      uri:
+        url: http://192.168.107.129/
+        status_code: 200
+
+    - name: Ensure the second webserver is reachable
+      uri:
+        url: http://192.168.107.128/
+        status_code: 200
+      register: result
+
+    - debug:
+        var: result

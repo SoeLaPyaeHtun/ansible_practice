@@ -1,0 +1,11 @@
+---
+- name: file handling
+  hosts: two.manage
+  tasks:
+    - name: file module
+      file:
+        path: /tmp/nothing
+        owner: ansible
+        group: wheel
+        mode: 0640
+        state: touch

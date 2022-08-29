@@ -1,0 +1,9 @@
+---
+- name: using line in file
+  hosts: two.manage
+  tasks:
+    - name: add line in nothing file
+      lineinfile:
+        path: /tmp/nothing
+        line: "This is First Line"
+        state: present

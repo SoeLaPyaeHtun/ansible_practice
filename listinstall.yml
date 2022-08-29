@@ -1,0 +1,11 @@
+---
+- name: install multi package
+  hosts: all
+  tasks:
+    - name: install multi package
+      yum:
+        name:
+          - httpd
+          - mariadb
+          - firewalld
+        state: latest

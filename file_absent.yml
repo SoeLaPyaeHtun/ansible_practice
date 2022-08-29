@@ -1,0 +1,8 @@
+---
+- name: deleting file
+  hosts: two.manage
+  tasks:
+    - name: delete file
+      file:
+        dest: /tmp/nothing
+        state: absent

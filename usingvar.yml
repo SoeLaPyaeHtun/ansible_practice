@@ -1,0 +1,13 @@
+---
+- name: using variable
+  hosts: all
+  vars:
+    user: camp
+  tasks:
+    - name: create account for {{ user }}
+      user:
+        name: "{{ user }}"
+      register: r
+
+    - debug:
+        var: r

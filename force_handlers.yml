@@ -1,0 +1,19 @@
+---
+- name: using force handler
+  hosts: one.manage
+  force_handlers: yes
+  tasks:
+    - name: This task is work
+      command: /bin/true
+      notify: restart httpd
+    
+    - name: This task is error
+      command: /bin/false
+     
+
+  handlers:
+    - name: restart httpd
+      service:
+        name: httpd
+        state: restarted
+      

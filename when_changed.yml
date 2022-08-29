@@ -1,0 +1,13 @@
+---
+- name: using when changed
+  hosts: one.manage
+  tasks:
+    - name: print date
+      command: date
+      register: result
+      #changed_when: false
+
+    - name: debug
+      debug:
+        var: result.stdout
+
