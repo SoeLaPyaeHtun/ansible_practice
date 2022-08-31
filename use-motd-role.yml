@@ -1,0 +1,5 @@
+---
+- name: using motd role
+  hosts: two.manage
+  roles:
+    - roles/motd

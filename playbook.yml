@@ -1,0 +1,31 @@
+---
+- name: create web server with module file
+  hosts: one.manage
+  tasks:
+    - name: include the enviroment file and set variable
+      include_tasks: tasks/enviroment.yml
+      vars:
+        package: httpd
+        service: httpd
+
+    - name: import the firewall file and set variable
+      import_tasks: tasks/firewall.yml
+      vars:
+        firewall_pkg: firewalld
+        firewall_service: firewalld
+        rule:
+          - http
+          - https
+
+
+    - name: import placeholder file and set variable
+      import_tasks: tasks/placeholder.yml
+      vars:
+        file: /var/www/html/index.html
+
+- name: import test play file and set variable
+  import_playbook: tasks/test.yml
+  vars:
+    url: 'http://192.168.107.128'
+
+

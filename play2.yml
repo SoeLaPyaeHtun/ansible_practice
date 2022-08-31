@@ -1,0 +1,5 @@
+---
+- name: install web server
+  hosts: one.manage
+  tasks:
+  - include_tasks: play1.yml

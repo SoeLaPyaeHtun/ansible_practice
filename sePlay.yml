@@ -1,0 +1,21 @@
+---
+- name: Apply Selinux Role
+  hosts: one.manage
+  tasks:
+    - name: Apply SeRole
+      block:
+        - include_role:
+            name: rhel-system-roles.selinux
+
+
+      rescue:
+        - name: Check failure for other reason
+          fail:
+          when: not selinux_reboot_required
+
+        - name: restart manage host
+          reboot:
+
+        - name: reapply selinux role
+          include_role:
+            name: rhel-system-roles.selinux
